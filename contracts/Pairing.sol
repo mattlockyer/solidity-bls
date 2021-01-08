@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.2;
 
 
 /**
@@ -28,14 +28,14 @@ library Pairing {
     /**
      * @return The generator of G1.
      */
-    function P1() internal pure returns (G1Point) {
+    function P1() internal pure returns (G1Point memory) {
         return G1Point(1, 2);
     }
 
     /**
      * @return The generator of G2.
      */
-    function P2() internal pure returns (G2Point) {
+    function P2() internal pure returns (G2Point memory) {
         return G2Point({
             x: [
                 11559732032986387107991004021392285783925812861821192530917403151452391805634,
@@ -53,7 +53,7 @@ library Pairing {
      * @param _message Message to hash.
      * @return Hashed G1 point. 
      */
-    function hashToG1(bytes _message) internal returns (G1Point) {
+    function hashToG1(bytes memory _message) internal returns (G1Point memory) {
         uint256 h = uint256(keccak256(_message));
         return curveMul(P1(), h);
     }
@@ -63,7 +63,7 @@ library Pairing {
      * @param _point Point to negate.
      * @return The negated point.
      */
-    function negate(G1Point _point) internal pure returns (G1Point) {
+    function negate(G1Point memory _point) internal pure returns (G1Point memory) {
         uint q = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
         if (_point.x == 0 && _point.y == 0) {
             return G1Point(0, 0);
@@ -77,7 +77,7 @@ library Pairing {
      * @param _g2points List of points in G2.
      * @return True if pairing check succeeds.
      */
-    function pairing(G1Point[] _g1points, G2Point[] _g2points) internal returns (bool) {
+    function pairing(G1Point[] memory _g1points, G2Point[] memory _g2points) internal returns (bool) {
         require(_g1points.length == _g2points.length, "Point count mismatch.");
 
         uint elements = _g1points.length;
@@ -113,10 +113,10 @@ library Pairing {
      * @return True if the pairing check succeeds.
      */
     function pairing2(
-        G1Point _g1point1,
-        G2Point _g2point1,
-        G1Point _g1point2,
-        G2Point _g2point2
+        G1Point memory _g1point1,
+        G2Point memory _g2point1,
+        G1Point memory _g1point2,
+        G2Point memory _g2point2
     ) internal returns (bool) {
         G1Point[] memory g1points = new G1Point[](2);
         G2Point[] memory g2points = new G2Point[](2);
@@ -138,7 +138,7 @@ library Pairing {
      * @param _scalar Scalar to multiply.
      * @return The resulting G1 point.
      */
-    function curveMul(G1Point _point, uint _scalar) private returns (G1Point) {
+    function curveMul(G1Point memory _point, uint _scalar) private returns (G1Point memory) {
         uint[3] memory input;
         input[0] = _point.x;
         input[1] = _point.y;

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.2;
 
 import "./Pairing.sol";
 import "./BLS.sol";
@@ -38,7 +38,7 @@ contract BLSTest {
      * Public functions
      */
 
-    function verify(bytes _message, uint _signatureX, uint _signatureY) public returns (bool) {
+    function verify(bytes memory _message, uint _signatureX, uint _signatureY) public returns (bool) {
         Pairing.G1Point memory signature = Pairing.G1Point({
             x: _signatureX,
             y: _signatureY

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.2;
 
 import "./Pairing.sol";
 
@@ -20,9 +20,9 @@ library BLS {
      * @return True if the message was correctly signed.
      */
     function verify(
-        Pairing.G2Point _verificationKey,
-        bytes _message,
-        Pairing.G1Point _signature
+        Pairing.G2Point memory _verificationKey,
+        bytes memory _message,
+        Pairing.G1Point memory _signature
     ) internal returns (bool) {
         Pairing.G1Point memory messageHash = Pairing.hashToG1(_message);
         return Pairing.pairing2(Pairing.negate(_signature), Pairing.P2(), messageHash, _verificationKey);
