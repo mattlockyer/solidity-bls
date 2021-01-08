@@ -1,0 +1,1089 @@
+{
+  "contractName": "BLS",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"details\":\"A library for verifying BLS signatures. Based on the work of https://gist.github.com/BjornvdLaan/ca6dd4e3993e1ef392f363ec27fe74c4, which is licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0).\",\"methods\":{},\"title\":\"BLS\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/matt/Projects/near/solidity-bls/contracts/BLS.sol\":\"BLS\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/matt/Projects/near/solidity-bls/contracts/BLS.sol\":{\"keccak256\":\"0xc05c2aa402feda2905d4b284abfe7e9d76828c526a4a39f9c5de86aecbb30c64\",\"urls\":[\"bzz-raw://82e1cddf621c110b5e5892c61cebd92521ff9989174558e639d1b0d86fd71ff7\",\"dweb:/ipfs/QmbVAfU2UbpZtRyAMwPWJQukdKC3hoBcYvNpAyHD5Duuxt\"]},\"/home/matt/Projects/near/solidity-bls/contracts/Pairing.sol\":{\"keccak256\":\"0x3bb3e3b12582b0d627a83c0284202864fddfa4e8e817b1a756b59598a4182a54\",\"urls\":[\"bzz-raw://7a17c833c8bb48d8b75e3c3b517072b2a756c6ed67095a5116260708eee15663\",\"dweb:/ipfs/QmcH1XKvU5sS282yT1BoNDqv4VK2wDQcyjo6e2mdgdv8mv\"]}},\"version\":1}",
+  "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820f2928ab19d783f1429e8b7dea6af1717cb6fbecff729a04622ad2c026e91ca6b64736f6c63430005100032",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820f2928ab19d783f1429e8b7dea6af1717cb6fbecff729a04622ad2c026e91ca6b64736f6c63430005100032",
+  "sourceMap": "294:750:0:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
+  "deployedSourceMap": "294:750:0:-;;;;;;;;",
+  "source": "pragma solidity ^0.5.2;\n\nimport \"./Pairing.sol\";\n\n\n/**\n * @title BLS\n * @dev A library for verifying BLS signatures. Based on the work of https://gist.github.com/BjornvdLaan/ca6dd4e3993e1ef392f363ec27fe74c4, which is licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0).\n */\nlibrary BLS {\n    /*\n     * Internal functions\n     */\n\n    /**\n     * @dev Checks if a BLS signature is valid.\n     * @param _verificationKey Public verification key associated with the secret key that signed the message.\n     * @param _message Message that was signed.\n     * @param _signature Signature over the message.\n     * @return True if the message was correctly signed.\n     */\n    function verify(\n        Pairing.G2Point memory _verificationKey,\n        bytes memory _message,\n        Pairing.G1Point memory _signature\n    ) internal returns (bool) {\n        Pairing.G1Point memory messageHash = Pairing.hashToG1(_message);\n        return Pairing.pairing2(Pairing.negate(_signature), Pairing.P2(), messageHash, _verificationKey);\n    }\n}\n",
+  "sourcePath": "/home/matt/Projects/near/solidity-bls/contracts/BLS.sol",
+  "ast": {
+    "absolutePath": "/home/matt/Projects/near/solidity-bls/contracts/BLS.sol",
+    "exportedSymbols": {
+      "BLS": [
+        37
+      ]
+    },
+    "id": 38,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "absolutePath": "/home/matt/Projects/near/solidity-bls/contracts/Pairing.sol",
+        "file": "./Pairing.sol",
+        "id": 2,
+        "nodeType": "ImportDirective",
+        "scope": 38,
+        "sourceUnit": 526,
+        "src": "25:23:0",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": "@title BLS\n@dev A library for verifying BLS signatures. Based on the work of https://gist.github.com/BjornvdLaan/ca6dd4e3993e1ef392f363ec27fe74c4, which is licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0).",
+        "fullyImplemented": true,
+        "id": 37,
+        "linearizedBaseContracts": [
+          37
+        ],
+        "name": "BLS",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 35,
+              "nodeType": "Block",
+              "src": "856:186:0",
+              "statements": [
+                {
+                  "assignments": [
+                    16
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 16,
+                      "name": "messageHash",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 35,
+                      "src": "866:34:0",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                        "typeString": "struct Pairing.G1Point"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 15,
+                        "name": "Pairing.G1Point",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 153,
+                        "src": "866:15:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_G1Point_$153_storage_ptr",
+                          "typeString": "struct Pairing.G1Point"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 21,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 19,
+                        "name": "_message",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 6,
+                        "src": "920:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 17,
+                        "name": "Pairing",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 525,
+                        "src": "903:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_Pairing_$525_$",
+                          "typeString": "type(library Pairing)"
+                        }
+                      },
+                      "id": 18,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "hashToG1",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 210,
+                      "src": "903:16:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_bytes_memory_ptr_$returns$_t_struct$_G1Point_$153_memory_ptr_$",
+                        "typeString": "function (bytes memory) returns (struct Pairing.G1Point memory)"
+                      }
+                    },
+                    "id": 20,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "903:26:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                      "typeString": "struct Pairing.G1Point memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "866:63:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 26,
+                            "name": "_signature",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 8,
+                            "src": "978:10:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                              "typeString": "struct Pairing.G1Point memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                              "typeString": "struct Pairing.G1Point memory"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 24,
+                            "name": "Pairing",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 525,
+                            "src": "963:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_contract$_Pairing_$525_$",
+                              "typeString": "type(library Pairing)"
+                            }
+                          },
+                          "id": 25,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "negate",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 250,
+                          "src": "963:14:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_struct$_G1Point_$153_memory_ptr_$returns$_t_struct$_G1Point_$153_memory_ptr_$",
+                            "typeString": "function (struct Pairing.G1Point memory) pure returns (struct Pairing.G1Point memory)"
+                          }
+                        },
+                        "id": 27,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "963:26:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                          "typeString": "struct Pairing.G1Point memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 28,
+                            "name": "Pairing",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 525,
+                            "src": "991:7:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_contract$_Pairing_$525_$",
+                              "typeString": "type(library Pairing)"
+                            }
+                          },
+                          "id": 29,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "P2",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 188,
+                          "src": "991:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$__$returns$_t_struct$_G2Point_$162_memory_ptr_$",
+                            "typeString": "function () pure returns (struct Pairing.G2Point memory)"
+                          }
+                        },
+                        "id": 30,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "991:12:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                          "typeString": "struct Pairing.G2Point memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 31,
+                        "name": "messageHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 16,
+                        "src": "1005:11:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                          "typeString": "struct Pairing.G1Point memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 32,
+                        "name": "_verificationKey",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4,
+                        "src": "1018:16:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                          "typeString": "struct Pairing.G2Point memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                          "typeString": "struct Pairing.G1Point memory"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                          "typeString": "struct Pairing.G2Point memory"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                          "typeString": "struct Pairing.G1Point memory"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                          "typeString": "struct Pairing.G2Point memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 22,
+                        "name": "Pairing",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 525,
+                        "src": "946:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_Pairing_$525_$",
+                          "typeString": "type(library Pairing)"
+                        }
+                      },
+                      "id": 23,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "pairing2",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 474,
+                      "src": "946:16:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_G1Point_$153_memory_ptr_$_t_struct$_G2Point_$162_memory_ptr_$_t_struct$_G1Point_$153_memory_ptr_$_t_struct$_G2Point_$162_memory_ptr_$returns$_t_bool_$",
+                        "typeString": "function (struct Pairing.G1Point memory,struct Pairing.G2Point memory,struct Pairing.G1Point memory,struct Pairing.G2Point memory) returns (bool)"
+                      }
+                    },
+                    "id": 33,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "946:89:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 12,
+                  "id": 34,
+                  "nodeType": "Return",
+                  "src": "939:96:0"
+                }
+              ]
+            },
+            "documentation": "@dev Checks if a BLS signature is valid.\n@param _verificationKey Public verification key associated with the secret key that signed the message.\n@param _message Message that was signed.\n@param _signature Signature over the message.\n@return True if the message was correctly signed.",
+            "id": 36,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "verify",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 9,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4,
+                  "name": "_verificationKey",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36,
+                  "src": "712:39:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                    "typeString": "struct Pairing.G2Point"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 3,
+                    "name": "Pairing.G2Point",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 162,
+                    "src": "712:15:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_G2Point_$162_storage_ptr",
+                      "typeString": "struct Pairing.G2Point"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6,
+                  "name": "_message",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36,
+                  "src": "761:21:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 5,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "761:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8,
+                  "name": "_signature",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36,
+                  "src": "792:33:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                    "typeString": "struct Pairing.G1Point"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 7,
+                    "name": "Pairing.G1Point",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 153,
+                    "src": "792:15:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_G1Point_$153_storage_ptr",
+                      "typeString": "struct Pairing.G1Point"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "702:129:0"
+            },
+            "returnParameters": {
+              "id": 12,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 36,
+                  "src": "850:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 10,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "850:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "849:6:0"
+            },
+            "scope": 37,
+            "src": "687:355:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 38,
+        "src": "294:750:0"
+      }
+    ],
+    "src": "0:1045:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/home/matt/Projects/near/solidity-bls/contracts/BLS.sol",
+      "exportedSymbols": {
+        "BLS": [
+          37
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".2"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 526,
+          "absolutePath": "/home/matt/Projects/near/solidity-bls/contracts/Pairing.sol",
+          "file": "./Pairing.sol",
+          "scope": 38,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 2,
+        "name": "ImportDirective",
+        "src": "25:23:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": "@title BLS\n@dev A library for verifying BLS signatures. Based on the work of https://gist.github.com/BjornvdLaan/ca6dd4e3993e1ef392f363ec27fe74c4, which is licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0).",
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            37
+          ],
+          "name": "BLS",
+          "scope": 38
+        },
+        "children": [
+          {
+            "attributes": {
+              "documentation": "@dev Checks if a BLS signature is valid.\n@param _verificationKey Public verification key associated with the secret key that signed the message.\n@param _message Message that was signed.\n@param _signature Signature over the message.\n@return True if the message was correctly signed.",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "verify",
+              "scope": 37,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_verificationKey",
+                      "scope": 36,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "struct Pairing.G2Point",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Pairing.G2Point",
+                          "referencedDeclaration": 162,
+                          "type": "struct Pairing.G2Point"
+                        },
+                        "id": 3,
+                        "name": "UserDefinedTypeName",
+                        "src": "712:15:0"
+                      }
+                    ],
+                    "id": 4,
+                    "name": "VariableDeclaration",
+                    "src": "712:39:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_message",
+                      "scope": 36,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 5,
+                        "name": "ElementaryTypeName",
+                        "src": "761:5:0"
+                      }
+                    ],
+                    "id": 6,
+                    "name": "VariableDeclaration",
+                    "src": "761:21:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_signature",
+                      "scope": 36,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "struct Pairing.G1Point",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Pairing.G1Point",
+                          "referencedDeclaration": 153,
+                          "type": "struct Pairing.G1Point"
+                        },
+                        "id": 7,
+                        "name": "UserDefinedTypeName",
+                        "src": "792:15:0"
+                      }
+                    ],
+                    "id": 8,
+                    "name": "VariableDeclaration",
+                    "src": "792:33:0"
+                  }
+                ],
+                "id": 9,
+                "name": "ParameterList",
+                "src": "702:129:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 36,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 10,
+                        "name": "ElementaryTypeName",
+                        "src": "850:4:0"
+                      }
+                    ],
+                    "id": 11,
+                    "name": "VariableDeclaration",
+                    "src": "850:4:0"
+                  }
+                ],
+                "id": 12,
+                "name": "ParameterList",
+                "src": "849:6:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "assignments": [
+                        16
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "messageHash",
+                          "scope": 35,
+                          "stateVariable": false,
+                          "storageLocation": "memory",
+                          "type": "struct Pairing.G1Point",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "contractScope": null,
+                              "name": "Pairing.G1Point",
+                              "referencedDeclaration": 153,
+                              "type": "struct Pairing.G1Point"
+                            },
+                            "id": 15,
+                            "name": "UserDefinedTypeName",
+                            "src": "866:15:0"
+                          }
+                        ],
+                        "id": 16,
+                        "name": "VariableDeclaration",
+                        "src": "866:34:0"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "struct Pairing.G1Point memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bytes_memory_ptr",
+                                  "typeString": "bytes memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "hashToG1",
+                              "referencedDeclaration": 210,
+                              "type": "function (bytes memory) returns (struct Pairing.G1Point memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 525,
+                                  "type": "type(library Pairing)",
+                                  "value": "Pairing"
+                                },
+                                "id": 17,
+                                "name": "Identifier",
+                                "src": "903:7:0"
+                              }
+                            ],
+                            "id": 18,
+                            "name": "MemberAccess",
+                            "src": "903:16:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6,
+                              "type": "bytes memory",
+                              "value": "_message"
+                            },
+                            "id": 19,
+                            "name": "Identifier",
+                            "src": "920:8:0"
+                          }
+                        ],
+                        "id": 20,
+                        "name": "FunctionCall",
+                        "src": "903:26:0"
+                      }
+                    ],
+                    "id": 21,
+                    "name": "VariableDeclarationStatement",
+                    "src": "866:63:0"
+                  },
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 12
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bool",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                                  "typeString": "struct Pairing.G1Point memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                                  "typeString": "struct Pairing.G2Point memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                                  "typeString": "struct Pairing.G1Point memory"
+                                },
+                                {
+                                  "typeIdentifier": "t_struct$_G2Point_$162_memory_ptr",
+                                  "typeString": "struct Pairing.G2Point memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "pairing2",
+                              "referencedDeclaration": 474,
+                              "type": "function (struct Pairing.G1Point memory,struct Pairing.G2Point memory,struct Pairing.G1Point memory,struct Pairing.G2Point memory) returns (bool)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 525,
+                                  "type": "type(library Pairing)",
+                                  "value": "Pairing"
+                                },
+                                "id": 22,
+                                "name": "Identifier",
+                                "src": "946:7:0"
+                              }
+                            ],
+                            "id": 23,
+                            "name": "MemberAccess",
+                            "src": "946:16:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct Pairing.G1Point memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_struct$_G1Point_$153_memory_ptr",
+                                      "typeString": "struct Pairing.G1Point memory"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "negate",
+                                  "referencedDeclaration": 250,
+                                  "type": "function (struct Pairing.G1Point memory) pure returns (struct Pairing.G1Point memory)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 525,
+                                      "type": "type(library Pairing)",
+                                      "value": "Pairing"
+                                    },
+                                    "id": 24,
+                                    "name": "Identifier",
+                                    "src": "963:7:0"
+                                  }
+                                ],
+                                "id": 25,
+                                "name": "MemberAccess",
+                                "src": "963:14:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 8,
+                                  "type": "struct Pairing.G1Point memory",
+                                  "value": "_signature"
+                                },
+                                "id": 26,
+                                "name": "Identifier",
+                                "src": "978:10:0"
+                              }
+                            ],
+                            "id": 27,
+                            "name": "FunctionCall",
+                            "src": "963:26:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "arguments": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct Pairing.G2Point memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    null
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "P2",
+                                  "referencedDeclaration": 188,
+                                  "type": "function () pure returns (struct Pairing.G2Point memory)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 525,
+                                      "type": "type(library Pairing)",
+                                      "value": "Pairing"
+                                    },
+                                    "id": 28,
+                                    "name": "Identifier",
+                                    "src": "991:7:0"
+                                  }
+                                ],
+                                "id": 29,
+                                "name": "MemberAccess",
+                                "src": "991:10:0"
+                              }
+                            ],
+                            "id": 30,
+                            "name": "FunctionCall",
+                            "src": "991:12:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 16,
+                              "type": "struct Pairing.G1Point memory",
+                              "value": "messageHash"
+                            },
+                            "id": 31,
+                            "name": "Identifier",
+                            "src": "1005:11:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4,
+                              "type": "struct Pairing.G2Point memory",
+                              "value": "_verificationKey"
+                            },
+                            "id": 32,
+                            "name": "Identifier",
+                            "src": "1018:16:0"
+                          }
+                        ],
+                        "id": 33,
+                        "name": "FunctionCall",
+                        "src": "946:89:0"
+                      }
+                    ],
+                    "id": 34,
+                    "name": "Return",
+                    "src": "939:96:0"
+                  }
+                ],
+                "id": 35,
+                "name": "Block",
+                "src": "856:186:0"
+              }
+            ],
+            "id": 36,
+            "name": "FunctionDefinition",
+            "src": "687:355:0"
+          }
+        ],
+        "id": 37,
+        "name": "ContractDefinition",
+        "src": "294:750:0"
+      }
+    ],
+    "id": 38,
+    "name": "SourceUnit",
+    "src": "0:1045:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.3",
+  "updatedAt": "2021-01-08T21:23:07.167Z",
+  "devdoc": {
+    "details": "A library for verifying BLS signatures. Based on the work of https://gist.github.com/BjornvdLaan/ca6dd4e3993e1ef392f363ec27fe74c4, which is licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0).",
+    "methods": {},
+    "title": "BLS"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
